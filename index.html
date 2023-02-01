@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Medvision</title>
+    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  </head>
+  <body>
+    <nav class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="#">medi<span>vision</span></a></div>
+            <ul class="menu">
+                <li><a href="#option1" class="menu-btn">option1</a></li>
+                <li><a href="#option2" class="menu-btn">option2</a></li>
+                <li><a href="#option3" class="menu-btn">option3</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="paddings" id="paddings"></section>
+    <section class="panels" id="panels">
+        <div class="max-width">
+            <div class = "card-container">
+                <div class = "info">
+                    <form action="http://localhost:5000/predict" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file">
+                        <input type="submit" value="Upload">
+                    </form>
+                </div>
+                <div class = "desc">
+                    <p>Here is some filler text. Detection text may be placed here? For example, Persistent bilateral airspace opacities. Here is some filler text. Detection text may be placed here? For example, Persistent bilateral airspace opacities.</p>
+                </div>
+            </div>
+    </section>
+
+  </body>
+</html>

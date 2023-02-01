@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+
+html * {
+    font-family: 'Ubuntu', sans-serif;
+}
+.max-width{
+    max-width: 1300px;
+    padding: 0 80px;
+    margin: auto;
+    border-color: red;
+    border-style: none;
+}
+
+body > h1{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+/* navbar styling */
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    padding: 30px 0;
+    font-family: 'Ubuntu', sans-serif;
+    transition: all 0.75s ease;
+    animation: nav-load 500ms ease-out;
+}
+
+@keyframes nav-load {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+.navbar.sticky{
+    padding: 15px 0;
+    background: rgb(255, 255, 255);
+}
+.navbar .max-width{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar .logo a{
+    color: rgb(189, 189, 189);
+    font-size: 25px;
+    font-weight: 100;
+}
+.navbar .logo a span{
+    color: rgb(191, 191, 191);
+    transition: all 0.5s ease;
+}
+.navbar.sticky .logo a span{
+    color: rgb(0, 114, 237);
+    transition: all 2.5s ease;
+}
+.navbar .menu li{
+    list-style: none;
+    display: inline-block;
+}
+.navbar .menu li a{
+    display: block;
+    color: rgb(205, 205, 205);
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 25px;
+    transition: color 0.3s ease;
+}
+.navbar .menu li a:hover{
+    color: rgb(0, 0, 0);
+}
+.navbar.sticky .menu li a:hover{
+    color: rgb(82, 82, 82);
+}
+
+
+/* all similar content styling codes */
+section{
+    padding-top: 150px;
+    padding-bottom: 100px;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#paddings {
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
+#panels {
+    background-image: linear-gradient(rgb(221, 243, 255), white)
+}
+
+.panels .card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-style: none;
+}
+
+.panels .card-container .info {
+    height: 400px;
+    width: 650px;
+    border-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.panels .card-container .desc {
+    height: 400px;
+    width: 400px;
+    border-style: none;
+}
+
+.panels .card-container .desc p {
+    text-align: justify;
+    color:rgb(60, 60, 60)
+}
+
+.panels .card-container .desc a {
+    font-weight: 600;
+    color:rgb(60, 60, 60);
+}
+
+.panels .card-container .desc a:hover {
+    color: rgb(0, 114, 237);
+    transition: all 0.5s ease;
+}
+
+.proj-title-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.proj-header-first{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-style: none;
+}
