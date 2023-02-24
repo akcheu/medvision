@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <title>Medvision</title>
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
     <nav class="navbar">
         <div class="max-width">
-            <div class="logo"><a href="#">medi<span>vision</span></a></div>
+            <div class="logo"><a href="#">med<span id = "hello">vision</span></a></div>
             <ul class="menu">
                 <li><a href="#option1" class="menu-btn">option1</a></li>
                 <li><a href="#option2" class="menu-btn">option2</a></li>
@@ -23,13 +23,14 @@
         <div class="max-width">
             <div class = "card-container">
                 <div class = "info">
-                    <form action="http://localhost:5000/predict" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file">
+                    <form action="/" method="post" enctype="multipart/form-data">
+                        <input type="file" name="uploaded-file" accept=".jpg">
                         <input type="submit" value="Upload">
                     </form>
                 </div>
                 <div class = "desc">
-                    <p>Here is some filler text. Detection text may be placed here? For example, Persistent bilateral airspace opacities. Here is some filler text. Detection text may be placed here? For example, Persistent bilateral airspace opacities.</p>
+                    <img src="{{ user_image }}" alt="uploaded image" width="500" height="400">
+                    <p>{{ user_text }}</p>
                 </div>
             </div>
     </section>
