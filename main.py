@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session
 from torchvision import transforms
 from PIL import Image
+from docarray import DocumentArray, Document
+
 import os
 import torch
 import clip
@@ -10,21 +12,30 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.secret_key = '123456789'
  
 def model_predict(image):
+    embed_loc = 'finetune-mimic-clip-0/'
+    train_text_da = DocumentArray.load(embed_loc + 'train_text')
+    train_image_da = DocumentArray.load(embed_loc + 'train_image')
+
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model, preprocess = clip.load("ViT-B/32", device=device)
-
-    image = preprocess(Image.open(image)).unsqueeze(0).to(device)
-    text = clip.tokenize(["a dog", "a cat"]).to(device)
-
+    img = preprocess(Image.open(image)).unsqueeze(0).to(device)
     with torch.no_grad():
-        image_features = model.encode_image(image)
-        text_features = model.encode_text(text)
-        
-        logits_per_image, logits_per_text = model(image, text)
-        probs = logits_per_image.softmax(dim=-1).cpu().numpy()
+        image_features = model.encode_image(img)
 
-    # print("Label probs:", probs)  # prints: [[0.9927937  0.00421068 0.00299572]]
-    return probs
+    img_doc = Document(
+        mime_type="image/jpeg",
+        embedding=image_features.numpy()
+    )
+
+    for i, doc in enumerate(train_image_da):
+        train_image_da[i].index = i
+    result = train_image_da.find(img_doc, limit=5)
+    preds = []
+    for i in range(5):
+        doc_result = result[0][i]
+        index = train_image_da[doc_result.id].index
+        preds.append(train_text_da[index].text)
+    return preds
 
 @app.route('/')
 def index():

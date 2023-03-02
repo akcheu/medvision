@@ -5,6 +5,7 @@
     <title>Medvision</title>
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   </head>
   <body>
     <nav class="navbar">
@@ -21,18 +22,51 @@
     <section class="paddings" id="paddings"></section>
     <section class="panels" id="panels">
         <div class="max-width">
-            <div class = "card-container">
-                <div class = "info">
-                    <form action="/" method="post" enctype="multipart/form-data">
-                        <input type="file" name="uploaded-file" accept=".jpg">
-                        <input type="submit" value="Upload">
-                    </form>
-                </div>
-                <div class = "desc">
-                    <p>Here is some filler text. Detection text may be placed here? For example, Persistent bilateral airspace opacities.</p>
-                </div>
+          <form action="/" method="post" enctype="multipart/form-data">
+            <div class = "submission-wrapper">
+              <div class = "choose-take">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="file-upload-text">Choose a File</i>
+                </label>
+                <input id="file-upload" name="uploaded-file" type="file" style="display:none;">
+              
+                <button id="start-btn">Start Camera</button>
+                <button id="capture-btn" disabled>Take Picture</button>
+                <!-- <video id="video" width="640" height="480"></video>
+                <canvas id="canvas" width="640" height="480"></canvas> -->
+              </div>
+              <div class = "upload-wrapper">
+                <label id="file-name"></label>
+                <input type="submit" value="Upload">
+              </div>
             </div>
+          </form>
+        </div>
     </section>
-
   </body>
+  <script>
+    // const startBtn = document.querySelector('#start-btn');
+    // const captureBtn = document.querySelector('#capture-btn');
+    // const video = document.querySelector('#video');
+    // const canvas = document.querySelector('#canvas');
+    // const ctx = canvas.getContext('2d');
+    // let stream;
+    // startBtn.addEventListener('click', () => {
+    //   navigator.mediaDevices.getUserMedia({ video: true })
+    //     .then((s) => {
+    //       stream = s;
+    //       video.srcObject = stream;
+    //       video.play();
+    //       captureBtn.disabled = false;
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // });
+    $("#file-upload").change(function(){
+      $("#file-name").text(this.files[0].name);
+      console.log("hi")
+    }); 
+  </script>
+  
 </html>
