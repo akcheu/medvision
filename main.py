@@ -3,37 +3,28 @@ from torchvision import transforms
 from PIL import Image
 import os
 import torch
+import clip
  
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.secret_key = '123456789'
  
 def model_predict(image):
-    model = torch.hub.load('pytorch/vision:v0.10.0', 'alexnet', pretrained=True)
-    model.eval()
-    input_image = Image.open(image)
-    preprocess = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-    ])
-    input_tensor = preprocess(input_image)
-    input_batch = input_tensor.unsqueeze(0)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model, preprocess = clip.load("ViT-B/32", device=device)
 
-    if torch.cuda.is_available():
-        input_batch = input_batch.to('cuda')
-        model.to('cuda')
+    image = preprocess(Image.open(image)).unsqueeze(0).to(device)
+    text = clip.tokenize(["a dog", "a cat"]).to(device)
 
     with torch.no_grad():
-        output = model(input_batch)
+        image_features = model.encode_image(image)
+        text_features = model.encode_text(text)
+        
+        logits_per_image, logits_per_text = model(image, text)
+        probs = logits_per_image.softmax(dim=-1).cpu().numpy()
 
-    probabilities = torch.nn.functional.softmax(output[0], dim=0)
-    with open("imagenet_classes.txt", "r") as f:
-        categories = [s.strip() for s in f.readlines()]
-    top1_prob, top1_catid = torch.topk(probabilities, 1)
-    text = str(categories[top1_catid[0]]) + " " + str(top1_prob[0].item())
-    return text
+    # print("Label probs:", probs)  # prints: [[0.9927937  0.00421068 0.00299572]]
+    return probs
 
 @app.route('/')
 def index():
