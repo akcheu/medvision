@@ -1,39 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Medvision</title>
+    <link rel="icon" type="image/x-icon" href="static/images/medvision.svg">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
-  <body>
+  <body >
     <nav class="navbar">
         <div class="max-width">
-            <div class="logo"><a href="#">med<span id = "hello">vision</span></a></div>
+            <div class="logo"><a href="http://medvision.pagekite.me">med<span id = "hello">vision</span></a></div>
             <ul class="menu">
-                <li><a href="#option1" class="menu-btn">option1</a></li>
-                <li><a href="#option2" class="menu-btn">option2</a></li>
-                <li><a href="#option3" class="menu-btn">option3</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">restart</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">change</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">save</a></li>
             </ul>
         </div>
     </nav>
 
     <section class="paddings" id="paddings"></section>
-    <section class="panels" id="panels">
+    <section class="panels" id="panels" style="background-image: linear-gradient(rgb(193, 193, 193), white); padding-bottom: 50px;">
+      <div class = "section-title">Patient Case</div>
         <div class="max-width">
             <div class = "card-container">
-                <div class = "info">
-                    <form action="/" method="post" enctype="multipart/form-data">
-                        <input type="file" name="uploaded-file" accept=".jpg">
-                        <input type="submit" value="Upload">
-                    </form>
-                </div>
-                <div class = "desc">
-                    <img src="{{ user_image }}" alt="uploaded image" width="500" height="400">
-                    <p>{{ user_text }}</p>
+                <div class = "desc-final">
+                    <img src="{{ user_image }}" alt="uploaded image" style="width: 15%; height: auto">
                 </div>
             </div>
     </section>
+    <section class="panels" id="panels" style="background-image: linear-gradient(rgb(221, 243, 255), white)">
+        <div class = "section-title" style="color: rgb(176, 207, 224);">Similar Cases</div>
+        <div id="case-container" >
+
+        </div> 
+    </section>
 
   </body>
+  <script type="text/javascript">
+    var user_text = '{{ user_text }}'
+    var case_container = document.getElementById("case-container");
+    var no_image = false;
+    if (user_text[0] == '#') {
+      no_image = true;
+      user_text = user_text.substring(1);
+    }
+    user_text = user_text.split("@")
+    // insert data
+    var img_counter = 0;
+    user_text.forEach(function (item) {
+        var newDiv = document.createElement("div");
+        newDiv.className = "case-card"
+        if (!no_image) {
+          var case_image = document.createElement("img");
+          case_image.className = "case-image"
+          newDiv.appendChild(case_image);
+          case_image.src = "static/downloads/image_" + img_counter + ".jpg"
+        }
+        var case_text = document.createElement("div");
+        case_text.className = "case-text"
+        newDiv.appendChild(case_text);
+        case_text.textContent = item;
+        case_container.appendChild(newDiv);
+        img_counter += 1;
+    })
+
+  </script>
 </html>

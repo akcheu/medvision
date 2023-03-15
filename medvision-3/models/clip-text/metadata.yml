@@ -1,0 +1,50 @@
+name: clip-text
+descriptor: openai/clip-vit-base-patch32
+description: CLIP base model
+task: text-to-image
+architecture: transformer
+builder: CLIPTextBuilder
+input_names:
+- input_ids
+- attention_mask
+input_shapes:
+- &id001
+  - batch-size
+  - sequence-length
+- *id001
+input_dtypes:
+- int32
+- int32
+output_name: embedding
+output_shape:
+- batch-size
+- 512
+dynamic_axes:
+  input_ids:
+    0: batch-size
+    1: sequence-length
+  attention_mask:
+    0: batch-size
+    1: sequence-length
+  embedding:
+    0: batch-size
+preprocess_types:
+  text: TextPreprocess
+collate_types:
+  text: TransformersCollate
+preprocess_options:
+  text: {}
+collate_options:
+  text:
+    name: openai/clip-vit-base-patch32
+    truncation: true
+    padding: true
+options:
+  pooler: mean
+  pooler_options: null
+embedding_layer: null
+output_dim: null
+freeze: false
+tailor_input_shape:
+- 20
+tailor_input_dtype: int32

@@ -1,4 +1,9 @@
 testing.ipynb
-finetune-mimic-clip-0
+finetune-mimic-clip-4 
+static/downloads
+static/uploads
+client_secret.json
+medvision-3-artifact.zip
+token.json
 .env
 .DS_Store

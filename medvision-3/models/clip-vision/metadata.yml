@@ -1,0 +1,45 @@
+name: clip-vision
+descriptor: openai/clip-vit-base-patch32
+description: CLIP base model
+task: text-to-image
+architecture: transformer
+builder: CLIPVisionBuilder
+input_names:
+- pixel_values
+input_shapes:
+- - batch-size
+  - 3
+  - 224
+  - 224
+input_dtypes:
+- float32
+output_name: embedding
+output_shape:
+- batch-size
+- 512
+dynamic_axes:
+  pixel_values:
+    0: batch-size
+  embedding:
+    0: batch-size
+preprocess_types:
+  image: VisionPreprocess
+collate_types:
+  image: VisionTransformersCollate
+preprocess_options:
+  image:
+    normalization: false
+    move_channel_axis: true
+    resize: false
+collate_options:
+  image:
+    name: openai/clip-vit-base-patch32
+options: {}
+embedding_layer: null
+output_dim: null
+freeze: false
+tailor_input_shape:
+- 3
+- 224
+- 224
+tailor_input_dtype: float32

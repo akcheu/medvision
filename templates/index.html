@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Medvision</title>
+    <link rel="icon" type="image/x-icon" href="static/images/medvision.svg">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -10,16 +12,17 @@
   <body>
     <nav class="navbar">
         <div class="max-width">
-            <div class="logo"><a href="#">med<span id = "hello">vision</span></a></div>
+            <div class="logo"><a href="http://medvision.pagekite.me">med<span id = "hello">vision</span></a></div>
             <ul class="menu">
-                <li><a href="#option1" class="menu-btn">option1</a></li>
-                <li><a href="#option2" class="menu-btn">option2</a></li>
-                <li><a href="#option3" class="menu-btn">option3</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">restart</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">change</a></li>
+              <li><a href="http://medvision.pagekite.me" class="menu-btn">save</a></li>
             </ul>
         </div>
     </nav>
-
+    
     <section class="paddings" id="paddings"></section>
+    <div id="progress-bar"></div>
     <section class="panels" id="panels">
         <div class="max-width">
           <form action="/" method="post" enctype="multipart/form-data">
@@ -28,16 +31,20 @@
                 <label for="file-upload" class="custom-file-upload">
                   <i class="file-upload-text">Choose a File</i>
                 </label>
+                <label for="camera-file" class="custom-file-upload" style="margin-left: 50px;">
+                  <i class="file-upload-text">Take a Picture</i>
+                </label>
                 <input id="file-upload" name="uploaded-file" type="file" style="display:none;">
-              
-                <button id="start-btn">Start Camera</button>
-                <button id="capture-btn" disabled>Take Picture</button>
+                <input id="camera-file" name="uploaded-file" type='file' accept='image/*' style="display:none;" capture>
                 <!-- <video id="video" width="640" height="480"></video>
                 <canvas id="canvas" width="640" height="480"></canvas> -->
               </div>
+              <label id="file-name"></label>
               <div class = "upload-wrapper">
-                <label id="file-name"></label>
-                <input type="submit" value="Upload">
+                <label for="upload" class="upload-btn">
+                  <i class="upload-text">Upload</i>
+                </label>
+                <input id="upload" type="submit" value="Upload" style="display:none;" onclick=progress()>
               </div>
             </div>
           </form>
@@ -45,28 +52,29 @@
     </section>
   </body>
   <script>
-    // const startBtn = document.querySelector('#start-btn');
-    // const captureBtn = document.querySelector('#capture-btn');
-    // const video = document.querySelector('#video');
-    // const canvas = document.querySelector('#canvas');
-    // const ctx = canvas.getContext('2d');
-    // let stream;
-    // startBtn.addEventListener('click', () => {
-    //   navigator.mediaDevices.getUserMedia({ video: true })
-    //     .then((s) => {
-    //       stream = s;
-    //       video.srcObject = stream;
-    //       video.play();
-    //       captureBtn.disabled = false;
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // });
+    $("#camera-file").change(function(){
+      $("#file-name").text(this.files[0].name);
+    }); 
     $("#file-upload").change(function(){
       $("#file-name").text(this.files[0].name);
-      console.log("hi")
     }); 
+    function progress() {
+        // Get the progress bar element
+        const progressBar = document.getElementById("progress-bar");
+        // Set the initial progress to 0%
+        let progress = 0;
+        // Update the progress bar every second
+        const intervalId = setInterval(() => {
+            // Increase the progress by 10%
+            progress += 10;
+            // Update the width of the progress bar
+            progressBar.style.width = `${progress}%`;
+            // Stop the interval when the progress reaches 100%
+            if (progress == 100) {
+                clearInterval(intervalId);
+            }
+        }, 500);
+    }
   </script>
   
 </html>

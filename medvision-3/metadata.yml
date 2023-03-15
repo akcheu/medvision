@@ -1,0 +1,8 @@
+name: medvision-3
+experiment: medvision
+device: cuda
+duration: '1:38:05.772627'
+timestamp: '2023-03-03 08:20:20'
+finetuner_version: 0.12.7
+model_type: clip-vision
+product: finetuner

@@ -1,0 +1,58 @@
+model:
+  name: openai/clip-vit-base-patch32
+  artifact: null
+  freeze: false
+  output_dim: null
+  options: null
+  to_onnx: false
+data:
+  train_data: finetuner-dastorage-medvision-medvision-3-train
+  eval_data: finetuner-dastorage-medvision-medvision-3-eval
+  val_split: 0.0
+  num_workers: 4
+  sampler: auto
+  num_items_per_class: 4
+callbacks:
+- name: WiSEFTCallback
+  options:
+    alpha: 0.5
+- name: WandBLogger
+  options:
+    metrics_logger_step: epoch
+    wandb_args: null
+- name: BestModelCheckpoint
+  options:
+    monitor: val_loss
+    mode: auto
+- name: EarlyStopping
+  options:
+    monitor: train_loss
+    mode: min
+    patience: 3
+    min_delta: 0
+    baseline: null
+hyper_parameters:
+  optimizer: Adam
+  optimizer_options:
+    weight_decay: 0.01
+    eps: 1.0e-06
+    betas:
+    - 0.9
+    - 0.98
+  loss: CLIPLoss
+  loss_options: null
+  loss_optimizer: null
+  loss_optimizer_options: null
+  miner: null
+  miner_options: null
+  scheduler: null
+  scheduler_options:
+    num_warmup_steps: 0
+    num_training_steps: auto
+    scheduler_step: batch
+  batch_size: 8
+  learning_rate: 1.0e-07
+  epochs: 20
+public: false
+run_name: medvision-3
+experiment_name: medvision

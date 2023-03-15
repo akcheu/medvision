@@ -4,18 +4,16 @@
 html * {
     font-family: 'Ubuntu', sans-serif;
 }
+
 .max-width{
     max-width: 1300px;
     padding: 0 80px;
     margin: auto;
-    border-color: red;
-    border-style: none;
 }
 
 body > h1{
     font-family: 'Ubuntu', sans-serif;
 }
-
 
 #hello {
     color: rgb(99, 166, 238)
@@ -46,6 +44,7 @@ html{
     font-family: 'Ubuntu', sans-serif;
     transition: all 0.75s ease;
     animation: nav-load 500ms ease-out;
+    background-color: rgb(255, 255, 255);
 }
 
 @keyframes nav-load {
@@ -99,8 +98,8 @@ html{
 
 
 /* all similar content styling codes */
-section{
-    padding-top: 150px;
+section {
+    padding-top: 50px;
     padding-bottom: 100px;
     padding-right: 0px;
     padding-left: 0px;
@@ -115,42 +114,6 @@ section{
     background-image: linear-gradient(rgb(221, 243, 255), white)
 }
 
-.panels .card-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-style: none;
-}
-
-.panels .card-container .info {
-    height: 400px;
-    width: 650px;
-    border-style: none;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.panels .card-container .desc {
-    height: 400px;
-    width: 400px;
-    border-style: none;
-}
-
-.panels .card-container .desc p {
-    text-align: justify;
-    color:rgb(60, 60, 60)
-}
-
-.panels .card-container .desc a {
-    font-weight: 600;
-    color:rgb(60, 60, 60);
-}
-
-.panels .card-container .desc a:hover {
-    color: rgb(0, 114, 237);
-    transition: all 0.5s ease;
-}
-
 .proj-title-container {
     display: flex;
     flex-direction: column;
@@ -163,12 +126,50 @@ section{
     border-style: none;
 }
 
+.desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.desc-inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.image-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding-bottom: 20px;
+}
+
+#panels > div > div > p {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    font-size: 30px;
+    color: rgb(157, 188, 205);
+    padding-bottom: 25px;
+}
+
+@keyframes button-load-right {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
 .custom-file-upload {
     border: 4px solid rgb(176, 207, 224);
     border-radius: 15px;
     display: inline-block;
     padding: 16px 25px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    animation: button-load-right 500ms ease-out;
 }
 
 .custom-file-upload:hover{
@@ -188,16 +189,18 @@ section{
 }
 
 #file-name {
-    color:rgb(85, 116, 133);
+    color:rgb(132, 168, 187);
 }
 
 #panels > div > form > div > div.choose-take > label {
-    margin-right: 50px;
+    margin-right: 0px;
 }
 
 .choose-take {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    padding-bottom: 50px;
 }
 .submission-wrapper {
     display: flex;
@@ -206,8 +209,181 @@ section{
 }
 
 .upload-wrapper {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-btn {
+    /* border: 4px solid rgb(176, 207, 224); */
+    border-radius: 15px;
+    display: inline-block;
+    background-color: rgb(99, 166, 238);
+    padding: 16px 85px;
+    cursor: pointer;
+}
+
+.upload-btn:hover{
+    border-radius: 15px;
+    display: inline-block;
+    background-color: rgb(170, 202, 236);
+    padding: 16px 85px;
+    cursor: pointer;
+}
+
+.upload-text {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(255, 255, 255)
+}
+
+.parameter-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.parameters {
+    background:rgb(176, 207, 224);
+    border-radius: 15px;
+    width:500px;
+    height:350px;
+    padding: 20px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: white;
+}
+
+.detect-text {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    color: rgb(255, 255, 255)
+}
+
+.detect-btn {
+    background-color: rgb(74, 151, 232);
+    border-radius: 15px;
+    display: inline-block;
+    padding: 16px 25px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.detect-btn:hover{
+    border-radius: 15px;
+    background-color: rgb(194, 234, 255);
+    display: inline-block;
+    padding: 16px 25px;
+    cursor: pointer; 
+}
+
+#panels > div > div > div > div.parameters > p {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    font-style: normal;
+    color: rgb(76, 76, 76)
+}
+
+.report-param {
+    margin-top: 50px;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+
+.category-param {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.setting-title {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.setting-title-2 {
+    width: 47%;
+    margin-right: 0px;
+}
+
+#panels > div > div > div > div.parameters > form > div.category-param > label {
+    margin-left: 0px;
+}
+
+#kvalue{
+    width: 40%;
+    margin-right: 20px;
+}
+
+#category {
+    margin-left: 0px;
+    width: 33.5%;
+}
+
+.fixed-width{
+    width:60px
+}
+
+img { 
+    height: auto;
+    width: 100%;
+    border-radius: 15px;
+    border: 5px solid rgb(176, 207, 224)
+}
+
+.desc-final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#case-container {
     padding-top: 50px;
     display: flex;
     flex-direction: column;
 }
 
+.case-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding-bottom: 100px;
+}
+
+.case-text {
+    width: 50%;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    font-style: normal;
+    color: rgb(76, 76, 76)
+}
+
+.case-image {
+    width: 20%;
+    height: auto;
+}
+
+.section-title {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    font-size: 35px;
+    font-style: normal;
+    color: rgb(255, 255, 255);
+    padding-left: 50px;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 5px;
+    background-color: rgb(74, 151, 232);
+}

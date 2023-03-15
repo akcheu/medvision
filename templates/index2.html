@@ -1,41 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Medvision</title>
+    <link rel="icon" type="image/x-icon" href="static/images/medvision.svg">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
   </head>
   <body>
     <nav class="navbar">
         <div class="max-width">
-            <div class="logo"><a href="#">med<span id = "hello">vision</span></a></div>
+            <div class="logo"><a href="http://medvision.pagekite.me">med<span id = "hello">vision</span></a></div>
             <ul class="menu">
-                <li><a href="#option1" class="menu-btn">option1</a></li>
-                <li><a href="#option2" class="menu-btn">option2</a></li>
-                <li><a href="#option3" class="menu-btn">option3</a></li>
+                <li><a href="http://medvision.pagekite.me" class="menu-btn">restart</a></li>
+                <li><a href="http://medvision.pagekite.me" class="menu-btn">change</a></li>
+                <li><a href="http://medvision.pagekite.me" class="menu-btn">save</a></li>
             </ul>
         </div>
     </nav>
 
     <section class="paddings" id="paddings"></section>
+    <div id="progress-bar"></div> 
     <section class="panels" id="panels">
         <div class="max-width">
-            <div class = "card-container">
-                <div class = "info">
-                    <form action="/" method="post" enctype="multipart/form-data">
-                        <input type="file" name="uploaded-file" accept=".jpg">
-                        <input type="submit" value="Upload">
-                    </form>
-                </div>
-                <div class = "desc">
-                    <img src="{{ user_image }}" alt="uploaded image" width="500" height="400">
-                    <form action="/predict">
-                        <input type="submit" value="Detect" />
-                    </form>
+            <div class = "desc">
+                <p> Your patient image </p>
+                <div class = "desc-inner">
+                    <div class = "image-wrapper">
+                        <img src="{{ user_image }}" alt="uploaded image">
+                    </div>
+                    <div class = "parameters">
+                        <p> Search settings </p>
+                        <form class = "parameter-form" action="/predict" method="POST">
+                            <div class = "report-param">
+                                <label class = "setting-title" for="kvalue">Number of reports</label>
+                                <input id="kvalue" name="kvalue" type="range" min="1" max="50" value="5" step="1">
+                                <div class = "fixed-width">
+                                    <p><output id="value-disp"></output></p>
+                                </div>
+                            </div>
+                            <div class = "category-param">
+                                <label class = "setting-title-2" for="category">Image category</label>
+                                <select name="category" id="category">
+                                    <option value="xray" selected>Chest X-Ray</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class = "category-param">
+                                <label class = "setting-title-2" for="category">Include images</label>
+                                <select name="category2" id="category2">
+                                    <option value="xray" selected>Yes</option>
+                                    <option value="other">No</option>
+                                </select>
+                            </div>
+                            <label for="detect" class="detect-btn" onsubmit="submit()" onclick="progress()">
+                                <i class="detect-text">Find similar cases</i>
+                            </label>
+                            <input id="detect" type="submit" value="Detect" style="display:none;">
+                        </form>
+                    </div>
                 </div>
             </div>
     </section>
-
   </body>
+  <script>
+    const value = document.querySelector("#value-disp")
+    const input = document.querySelector("#kvalue")
+    const no_image = document.querySelector('#category2')
+    const loading = ""
+    value.textContent = input.value
+    input.addEventListener("input", (event) => {
+        value.textContent = event.target.value
+    })
+    function progress() {
+        // Get the progress bar element
+        const fast = no_image.value
+        const kval = value.textContent
+        const progressBar = document.getElementById("progress-bar");
+        // Set the initial progress to 0%
+        let progress = 0;
+        let time = 250;
+        if (fast == 'xray') {
+            time = 130*kval+100;
+        }
+        // Update the progress bar every second
+        const intervalId = setInterval(() => {
+            // Increase the progress by 10%
+            progress += 5;
+            // Update the width of the progress bar
+            progressBar.style.width = `${progress}%`;
+            // Stop the interval when the progress reaches 100%
+            if (progress === 100) {
+                clearInterval(intervalId);
+            }
+        }, time);
+    }
+
+    
+    
+  </script>
 </html>
